@@ -1,0 +1,214 @@
+dac@dac-Veriton-M200-H310:/media/dac/Arutwar/CDAC$ sudo mysql
+[sudo] password for dac: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 9
+Server version: 8.0.34-0ubuntu0.22.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> CREATE DATABSE college;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DATABSE college' at line 1
+mysql> CREATE DATABASE college;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| B1d1               |
+| College            |
+| DAC_AH             |
+| college            |
+| company            |
+| ecommerce          |
+| employee           |
+| information_schema |
+| mysql              |
+| performance_schema |
+| store_data         |
+| sys                |
++--------------------+
+12 rows in set (0.00 sec)
+
+mysql> USE college;
+Database changed
+mysql> CREATE TABLE student ( 
+    -> roll INT,
+    -> name VARCHAR(50),
+    -> class VARCHAR(15),
+    -> marks FLOAT,
+    -> age INT
+    -> );
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> SHOW TABLES;
++-------------------+
+| Tables_in_college |
++-------------------+
+| student           |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> SHOW COLUMNS FROM student;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| roll  | int         | YES  |     | NULL    |       |
+| name  | varchar(50) | YES  |     | NULL    |       |
+| class | varchar(15) | YES  |     | NULL    |       |
+| marks | float       | YES  |     | NULL    |       |
+| age   | int         | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> INSTER INTO student (roll, name, class, marks, age) VALUES (1,'Shubham Arutwar', 'FY', 92.32, 18);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'INSTER INTO student (roll, name, class, marks, age) VALUES (1,'Shubham Arutwar',' at line 1
+mysql> ^C
+mysql> INSERT INTO student (roll, name, class, marks, age) VALUES (1,'Shubham Arutwar', 'FY', 92.32, 18);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM students;
+ERROR 1146 (42S02): Table 'college.students' doesn't exist
+mysql> SELECT * FROM student;
++------+-----------------+-------+-------+------+
+| roll | name            | class | marks | age  |
++------+-----------------+-------+-------+------+
+|    1 | Shubham Arutwar | FY    | 92.32 |   18 |
++------+-----------------+-------+-------+------+
+1 row in set (0.00 sec)
+
+mysql> INSERT INTO student (roll, name, class, marks, age) VALUES (2,'Aditya Mhatre', 'FY', 95.82, 18);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO student (roll, name, class, marks, age) VALUES (1,'Urvi Patil', 'SY', 85.83, 19);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO student (roll, name, class, marks, age) VALUES (7,'Madhura', 'FY', 92.23, 19);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO student (roll, name, class, marks, age) VALUES (10,'Vedant', 'TY', 82.23, 20);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM student;
++------+-----------------+-------+-------+------+
+| roll | name            | class | marks | age  |
++------+-----------------+-------+-------+------+
+|    1 | Shubham Arutwar | FY    | 92.32 |   18 |
+|    2 | Aditya Mhatre   | FY    | 95.82 |   18 |
+|    1 | Urvi Patil      | SY    | 85.83 |   19 |
+|    7 | Madhura         | FY    | 92.23 |   19 |
+|   10 | Vedant          | TY    | 82.23 |   20 |
++------+-----------------+-------+-------+------+
+5 rows in set (0.00 sec)
+
+mysql> DELETE FROM student WHERE roll = 10;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM student;
++------+-----------------+-------+-------+------+
+| roll | name            | class | marks | age  |
++------+-----------------+-------+-------+------+
+|    1 | Shubham Arutwar | FY    | 92.32 |   18 |
+|    2 | Aditya Mhatre   | FY    | 95.82 |   18 |
+|    1 | Urvi Patil      | SY    | 85.83 |   19 |
+|    7 | Madhura         | FY    | 92.23 |   19 |
++------+-----------------+-------+-------+------+
+4 rows in set (0.00 sec)
+
+mysql> ALTER student SET marks = 100 WHERE roll = 7;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'student SET marks = 100 WHERE roll = 7' at line 1
+mysql> UPDATE student SET marks = 100 WHERE roll = 7;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM student;
++------+-----------------+-------+-------+------+
+| roll | name            | class | marks | age  |
++------+-----------------+-------+-------+------+
+|    1 | Shubham Arutwar | FY    | 92.32 |   18 |
+|    2 | Aditya Mhatre   | FY    | 95.82 |   18 |
+|    1 | Urvi Patil      | SY    | 85.83 |   19 |
+|    7 | Madhura         | FY    |   100 |   19 |
++------+-----------------+-------+-------+------+
+4 rows in set (0.01 sec)
+
+mysql> UPDATE student SET marks = marks + 0.5;
+Query OK, 4 rows affected (0.00 sec)
+Rows matched: 4  Changed: 4  Warnings: 0
+
+mysql> SELECT * FROM student;
++------+-----------------+-------+-------+------+
+| roll | name            | class | marks | age  |
++------+-----------------+-------+-------+------+
+|    1 | Shubham Arutwar | FY    | 92.82 |   18 |
+|    2 | Aditya Mhatre   | FY    | 96.32 |   18 |
+|    1 | Urvi Patil      | SY    | 86.33 |   19 |
+|    7 | Madhura         | FY    | 100.5 |   19 |
++------+-----------------+-------+-------+------+
+4 rows in set (0.00 sec)
+
+mysql> TRUNCATE TABLE student;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> SELECT * FROM student;
+Empty set (0.00 sec)
+
+mysql> INSERT INTO (roll, name, class, marks, age) 
+    -> VALUES (1, 'Shubham', 'TY, 82.32, 19),
+    '> (2, 'Vedant', 'TY', 87.15, 19),
+    '> (3, 'Urvi', 'SY, 65.87, 18),
+    -> (4, 'Aditya', 'FY', 75.35, 17),
+    -> (5, 'Madhura', 'TY', 92.25, 19);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(roll, name, class, marks, age)
+VALUES (1, 'Shubham', 'TY, 82.32, 19),
+(2, 'Veda' at line 1
+mysql> SHOW COLUMNS FROM student;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| roll  | int         | YES  |     | NULL    |       |
+| name  | varchar(50) | YES  |     | NULL    |       |
+| class | varchar(15) | YES  |     | NULL    |       |
+| marks | float       | YES  |     | NULL    |       |
+| age   | int         | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> INSERT INTO (roll, name, class, marks, age) VALUES (1, 'Shubham', 'TY', 82.32, 19),
+(2, 'Vedant', 'TY', 87.15, 19),
+(3, 'Urvi', 'SY', 65.87, 18), (4, 'Aditya', 'FY', 75.35, 17), (5, 'Madhura', 'TY', 92.25, 19);
+    -> 
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(roll, name, class, marks, age) VALUES (1, 'Shubham', 'TY', 82.32, 19),' at line 1
+mysql> INSERT INTO (roll, name, class, marks, age) 
+    -> VALUES (1, 'Shubham', 'TY', 82.32, 19),
+    -> (2, 'Vedant', 'TY', 87.15, 19),
+    -> (3, 'Urvi', 'SY', 65.87, 18),
+    -> (4, 'Aditya', 'FY', 75.35, 17),
+    -> (5, 'Madhura', 'TY', 92.25, 19);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(roll, name, class, marks, age) 
+VALUES (1, 'Shubham', 'TY', 82.32, 19),
+(2, 'Ve' at line 1
+mysql> INSERT INTO student (roll, name, class, marks, age)  VALUES (1, 'Shubham', 'TY', 82.32, 19), (2,
+'Vedant', 'TY', 87.15, 19), (3, 'Urvi', 'SY', 65.87, 18), (4, 'Aditya', 'FY', 75.35, 17), (5, 'Madhura',
+ 'TY', 92.25, 19);
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM student;
++------+---------+-------+-------+------+
+| roll | name    | class | marks | age  |
++------+---------+-------+-------+------+
+|    1 | Shubham | TY    | 82.32 |   19 |
+|    2 | Vedant  | TY    | 87.15 |   19 |
+|    3 | Urvi    | SY    | 65.87 |   18 |
+|    4 | Aditya  | FY    | 75.35 |   17 |
+|    5 | Madhura | TY    | 92.25 |   19 |
++------+---------+-------+-------+------+
+5 rows in set (0.00 sec)

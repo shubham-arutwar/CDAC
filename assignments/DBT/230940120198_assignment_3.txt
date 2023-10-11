@@ -1,0 +1,176 @@
+dac@dac-Veriton-M200-H310:/media/dac/Arutwar/CDAC$ sudo mysql
+[sudo] password for dac: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 10
+Server version: 8.0.34-0ubuntu0.22.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> CREATE DATABASE college;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> USE college;
+Database changed
+mysql> CREATE TABLE student (
+    ->     roll INT,
+    ->     name VARCHAR(50),
+    ->     class VARCHAR(15),
+    ->     marks FLOAT,
+    ->     age INT
+    -> );
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> ALTER TABLE student
+    -> ADD CONSTRAINT uc_roll UNIQUE (roll);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM student;
+Empty set (0.00 sec)
+
+mysql> SHOW COLUMNS FROM student;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| roll  | int         | YES  | UNI | NULL    |       |
+| name  | varchar(50) | YES  |     | NULL    |       |
+| class | varchar(15) | YES  |     | NULL    |       |
+| marks | float       | YES  |     | NULL    |       |
+| age   | int         | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT SUM(marks) AS total_marks FROM student;
++-------------+
+| total_marks |
++-------------+
+|        NULL |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> INSERT INTO student (roll, name, class, marks, age)  VALUES (1, 'Shubham', 'TY', 82.32, 19), (2,
+    -> 'Vedant', 'TY', 87.15, 19), (3, 'Urvi', 'SY', 65.87, 18), (4, 'Aditya', 'FY', 75.35, 17), (5, 'Madhura',
+    ->  'TY', 92.25, 19);
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> SELECT SUM(marks) AS total_marks FROM student;
++--------------------+
+| total_marks        |
++--------------------+
+| 402.94000244140625 |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT AVG(marks) AS avg_marks FROM student;
++-------------------+
+| avg_marks         |
++-------------------+
+| 80.58800048828125 |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT COUNT(*) AS total_students FROM student;
++----------------+
+| total_students |
++----------------+
+|              5 |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT MAX(marks) AS max_marks FROM student;
++-----------+
+| max_marks |
++-----------+
+|     92.25 |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT MIN(marks) AS min_marks FROM student;
++-----------+
+| min_marks |
++-----------+
+|     65.87 |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT class, AVG(marks) AS avg_marks
+    -> FROM student
+    -> GROUP BY class
+    -> HAVING avg_marks >= 80;
++-------+-------------------+
+| class | avg_marks         |
++-------+-------------------+
+| TY    | 87.24000040690105 |
++-------+-------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM student WHERE name LIKE 'A%';
++------+--------+-------+-------+------+
+| roll | name   | class | marks | age  |
++------+--------+-------+-------+------+
+|    4 | Aditya | FY    | 75.35 |   17 |
++------+--------+-------+-------+------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DISTINCT class FROM student;
++-------+
+| class |
++-------+
+| TY    |
+| SY    |
+| FY    |
++-------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM student ORDER BY marks DESC;
++------+---------+-------+-------+------+
+| roll | name    | class | marks | age  |
++------+---------+-------+-------+------+
+|    5 | Madhura | TY    | 92.25 |   19 |
+|    2 | Vedant  | TY    | 87.15 |   19 |
+|    1 | Shubham | TY    | 82.32 |   19 |
+|    4 | Aditya  | FY    | 75.35 |   17 |
+|    3 | Urvi    | SY    | 65.87 |   18 |
++------+---------+-------+-------+------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM student WHERE age BETWEEN 18 AND 19;
++------+---------+-------+-------+------+
+| roll | name    | class | marks | age  |
++------+---------+-------+-------+------+
+|    1 | Shubham | TY    | 82.32 |   19 |
+|    2 | Vedant  | TY    | 87.15 |   19 |
+|    3 | Urvi    | SY    | 65.87 |   18 |
+|    5 | Madhura | TY    | 92.25 |   19 |
++------+---------+-------+-------+------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT * FROM student WHERE age IS NULL;
+Empty set (0.00 sec)
+
+mysql> SELECT * FROM student WHERE class IN ('SY', 'FY');
++------+--------+-------+-------+------+
+| roll | name   | class | marks | age  |
++------+--------+-------+-------+------+
+|    3 | Urvi   | SY    | 65.87 |   18 |
+|    4 | Aditya | FY    | 75.35 |   17 |
++------+--------+-------+-------+------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM student WHERE class NOT IN ('SY');
++------+---------+-------+-------+------+
+| roll | name    | class | marks | age  |
++------+---------+-------+-------+------+
+|    1 | Shubham | TY    | 82.32 |   19 |
+|    2 | Vedant  | TY    | 87.15 |   19 |
+|    4 | Aditya  | FY    | 75.35 |   17 |
+|    5 | Madhura | TY    | 92.25 |   19 |
++------+---------+-------+-------+------+
+4 rows in set (0.00 sec)

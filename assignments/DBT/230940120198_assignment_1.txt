@@ -1,0 +1,206 @@
+dac@dac-Veriton-M200-H310:/media/dac/Arutwar/CDAC$ sudo mysql
+[sudo] password for dac: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.34-0ubuntu0.22.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> ll
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'll' at line 1
+mysql> show databases
+    -> ;
++--------------------+
+| Database           |
++--------------------+
+| B1d1               |
+| College            |
+| DAC_AH             |
+| company            |
+| ecommerce          |
+| employee           |
+| information_schema |
+| mysql              |
+| performance_schema |
+| store_data         |
+| sys                |
++--------------------+
+11 rows in set (0.00 sec)
+
+mysql> create database college
+    -> ;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> show databases
+    -> ;
++--------------------+
+| Database           |
++--------------------+
+| B1d1               |
+| College            |
+| DAC_AH             |
+| college            |
+| company            |
+| ecommerce          |
+| employee           |
+| information_schema |
+| mysql              |
+| performance_schema |
+| store_data         |
+| sys                |
++--------------------+
+12 rows in set (0.00 sec)
+
+mysql> use college;
+Database changed
+mysql> create table student (
+    -> roll int auto_increment,
+    -> name varchar(50),
+    -> class varchar(15),
+    -> marks float,
+    -> age int,
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 7
+mysql> create table student ( roll int auto_increment, name varchar(50), class varchar(15), marks float, age int );
+ERROR 1075 (42000): Incorrect table definition; there can be only one auto column and it must be defined as a key
+mysql> show table student
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'student' at line 1
+mysql> USE college; -- Use the college database
+Database changed
+mysql> 
+mysql> CREATE TABLE student (
+    ->     roll INT,
+    ->     name VARCHAR(50),
+    ->     class VARCHAR(15),
+    ->     marks FLOAT,
+    ->     age INT
+    -> );
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> show tables
+    -> ;
++-------------------+
+| Tables_in_college |
++-------------------+
+| student           |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> show columns from student;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| roll  | int         | YES  |     | NULL    |       |
+| name  | varchar(50) | YES  |     | NULL    |       |
+| class | varchar(15) | YES  |     | NULL    |       |
+| marks | float       | YES  |     | NULL    |       |
+| age   | int         | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> ALTER TABLE STUDENT MODIFY marks INT;
+ERROR 1146 (42S02): Table 'college.STUDENT' doesn't exist
+mysql> ALTER TABLE student MODIFY marks INT;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> show columns from student;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| roll  | int         | YES  |     | NULL    |       |
+| name  | varchar(50) | YES  |     | NULL    |       |
+| class | varchar(15) | YES  |     | NULL    |       |
+| marks | int         | YES  |     | NULL    |       |
+| age   | int         | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> DROP COLUMN age;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'COLUMN age' at line 1
+mysql> ALTER TABLE student DROP COLUMN age;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> show columns from student;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| roll  | int         | YES  |     | NULL    |       |
+| name  | varchar(50) | YES  |     | NULL    |       |
+| class | varchar(15) | YES  |     | NULL    |       |
+| marks | int         | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> show tables;
++-------------------+
+| Tables_in_college |
++-------------------+
+| student           |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> TRUNCATE TABLE student;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> show tables;
++-------------------+
+| Tables_in_college |
++-------------------+
+| student           |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> show table student;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'student' at line 1
+mysql> show columns from student;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| roll  | int         | YES  |     | NULL    |       |
+| name  | varchar(50) | YES  |     | NULL    |       |
+| class | varchar(15) | YES  |     | NULL    |       |
+| marks | int         | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> select * from student;
+Empty set (0.00 sec)
+
+mysql> DROP TABLE student;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> show tables;
+Empty set (0.00 sec)
+
+mysql> DROP DATABASE college;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> SHOW DATABSES;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DATABSES' at line 1
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| B1d1               |
+| College            |
+| DAC_AH             |
+| company            |
+| ecommerce          |
+| employee           |
+| information_schema |
+| mysql              |
+| performance_schema |
+| store_data         |
+| sys                |
++--------------------+
+11 rows in set (0.00 sec)
