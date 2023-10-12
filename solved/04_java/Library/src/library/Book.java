@@ -6,12 +6,6 @@ public class Book {
     private String id;
     private boolean availability;
 
-    public Book(String title, String author, String id){
-        this.title = title;
-        this.author = author;
-        this.id = id;
-        this.availability = true;
-    }
     public Book(String title, String author, String id, boolean availability){
         this.title = title;
         this.author = author;

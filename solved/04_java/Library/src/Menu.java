@@ -10,17 +10,28 @@ public class Menu {
         choice = scanner.nextInt();
         switch (choice){
             case 1 :
-                System.out.println("Enter book name, author, id");
+                System.out.println("Enter book name, author, id and availability");
                 String title = scanner.next();
                 String author = scanner.next();
                 String id = scanner.next();
-                Book book = new Book(title,author,id);
+                boolean availability = true;
+                String availabilityInput = scanner.next();
+                if(availabilityInput.equals("y")){
+                    availability=true;
+                } else if (availabilityInput.equals("n")) {
+                    availability=false;
+                }
+                Book book = new Book(title,author,id,availability);
                 lib.addBook(book);
-                lib.listAvailableBooks();
                 break;
             case 2 :
+                lib.listAllBooks();
+                break;
+            case 3 :
                 lib.listAvailableBooks();
                 break;
+            case 4 :
+                lib.listUnavailableBooks();
         }
     }
 }
