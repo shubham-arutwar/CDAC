@@ -21,7 +21,11 @@ public class Library {
     public void listAvailableBooks(){
         System.out.println("Available books in library are : ");
         for (Book book: books) {
-            System.out.println(book);
+            if (book != null) {
+                System.out.println(book.getId());
+                System.out.println(book.getTitle());
+                System.out.println(book.getAuthor());
+            }
         }
     }
 }

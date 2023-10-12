@@ -35,19 +35,19 @@ public class Book {
         this.author = author;
     }
 
-    public String getISBN() {
-        return ISBN;
+    public String getId() {
+        return id;
     }
 
-    public void setISBN(String ISBN) {
-        this.ISBN = ISBN;
+    public void setISBN(String id) {
+        this.id = id;
     }
 
     public boolean isAvailable() {
-        return available;
+        return availability;
     }
 
-    public void setAvailable(boolean available) {
-        this.available = available;
+    public void setAvailable(boolean availability) {
+        this.availability = availability;
     }
 }
